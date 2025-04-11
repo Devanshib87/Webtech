@@ -26,14 +26,14 @@
 
 import React from 'react';
 import './App.css';
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
 // import Home from './pages/Home'; // Comment out or remove Home for now
-import Students from './pages/Students'; // Import the new Students page
+import Students from './Pages/Students'; // Import the new Students page
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
+      {/* <Navbar /> */}
       {/* <Home /> */} {/* Temporarily hide Home */}
       <Students /> {/* Show the Students page */}
     </div>
