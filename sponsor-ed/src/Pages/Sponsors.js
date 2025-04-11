@@ -1,11 +1,14 @@
+// src/Pages/Sponsors.js
 import React from 'react';
+import StudentList from '../components/StudentList'; // Import the list component
 
-function Sponsors() {
+// Accept the students array as a prop
+function Sponsors({ students }) {
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Sponsor Information</h1>
-      <p>Details about sponsors and how to become one will go here.</p>
-      {/* We will add the SponsorList component here later */}
+    <div>
+      {/* You can add general sponsor info here if needed */}
+      {/* Pass the students array down to the StudentList component */}
+      <StudentList students={students} />
     </div>
   );
 }

@@ -1,11 +1,13 @@
+// src/Pages/Students.js
 import React from 'react';
-import StudentForm from '../components/StudentForm'; // Import the form
+import StudentForm from '../components/StudentForm'; // Ensure correct path (lowercase 'c')
 
-function Students() {
+// Accept the onAddStudent prop from App.js
+function Students({ onAddStudent }) {
   return (
     <div>
-      {/* You could add other student-related content here later */}
-      <StudentForm />
+      {/* Pass the function down to the StudentForm */}
+      <StudentForm onStudentSubmit={onAddStudent} /> {/* Changed prop name for clarity */}
     </div>
   );
 }

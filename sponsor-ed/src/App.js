@@ -23,38 +23,42 @@
 // }
 
 // export default App;
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import Router components
+// src/App.js
+// src/App.js
+// ... (imports and state management code from before) ...
+
+// src/App.js
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Navbar from './components/Navbar'; // Correct path if needed: './Components/Navbar'
-import Home from './Pages/Home';
-import Students from './Pages/Students';
-import Sponsors from './Pages/Sponsors'; // Import the new Sponsors page
+import Navbar from './components/Navbar'; // Ensure correct path
+import Home from './Pages/Home';          // Ensure correct path & capitalization
+import Students from './Pages/Students';    // Ensure correct path & capitalization
+import Sponsors from './Pages/Sponsors';    // Ensure correct path & capitalization
 
 function App() {
+  const [students, setStudents] = useState([]);
+
+  const addStudent = (studentData) => {
+    const newStudent = { ...studentData, id: Date.now() };
+    setStudents(prevStudents => [...prevStudents, newStudent]);
+    console.log("Updated Students List:", [...students, newStudent]);
+  };
+
   return (
-    // 1. Wrap everything in Router
     <Router>
       <div className="App">
-        <Navbar /> {/* Navbar stays outside Routes to be on every page */}
-        <main> {/* Optional: wrap routes in main for semantic HTML */}
-          {/* 2. Define the Routes */}
+        <Navbar />
+        <main>
           <Routes>
-            {/* Route for the Home page */}
             <Route path="/" element={<Home />} />
-
-            {/* Route for the Students page (form) */}
-            <Route path="/students" element={<Students />} />
-
-            {/* Route for the Sponsors page */}
-            <Route path="/sponsors" element={<Sponsors />} />
-
-            {/* Optional: Add a catch-all route for 404 Not Found */}
-            <Route path="*" element={
-              <div style={{ padding: "20px" }}>
-                <h2>404: Page Not Found</h2>
-              </div>
-            } />
+            <Route path="/students" element={<Students onAddStudent={addStudent} />} />
+            {/* Remove the comment from inside this tag */}
+            <Route
+              path="/sponsors"
+              element={<Sponsors students={students} />}
+            />
+            <Route path="*" element={ <div style={{ padding: "20px" }}><h2>404: Page Not Found</h2></div> } />
           </Routes>
         </main>
       </div>
