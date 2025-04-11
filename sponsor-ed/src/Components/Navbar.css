@@ -1,0 +1,43 @@
+/* src/components/Navbar.css */
+
+.navbar {
+    background-color: #007bff; /* Blue background */
+    color: white;
+    padding: 15px 30px; /* Adjust padding as needed */
+    display: flex;
+    justify-content: space-between; /* Pushes title left, links right */
+    align-items: center; /* Vertically centers items */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .navbar h2 {
+    margin: 0; /* Remove default margin */
+    font-size: 1.5rem; /* Adjust size */
+  }
+  
+  .navbar ul {
+    list-style-type: none; /* Remove bullet points */
+    display: flex;
+    gap: 25px; /* Space between nav items */
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar li {
+    display: inline-block; /* Align items horizontally */
+  }
+  
+  /* Styling for the <Link> elements from react-router-dom */
+  .navbar a { /* Target the <a> tags rendered by <Link> */
+    color: white;
+    text-decoration: none; /* Remove underline */
+    font-size: 1rem; /* Adjust size */
+    padding: 5px 10px; /* Add some clickable area */
+    border-radius: 4px; /* Slightly rounded corners */
+    transition: background-color 0.2s ease; /* Smooth hover effect */
+  }
+  
+  .navbar a:hover,
+  .navbar a.active { /* Add hover effect and style for active link (requires NavLink later) */
+    background-color: rgba(255, 255, 255, 0.2); /* Slight highlight on hover */
+  }

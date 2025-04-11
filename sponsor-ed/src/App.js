@@ -23,20 +23,42 @@
 // }
 
 // export default App;
-
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import Router components
 import './App.css';
-// import Navbar from './components/Navbar';
-// import Home from './pages/Home'; // Comment out or remove Home for now
-import Students from './Pages/Students'; // Import the new Students page
+import Navbar from './components/Navbar'; // Correct path if needed: './Components/Navbar'
+import Home from './Pages/Home';
+import Students from './Pages/Students';
+import Sponsors from './Pages/Sponsors'; // Import the new Sponsors page
 
 function App() {
   return (
-    <div className="App">
-      {/* <Navbar /> */}
-      {/* <Home /> */} {/* Temporarily hide Home */}
-      <Students /> {/* Show the Students page */}
-    </div>
+    // 1. Wrap everything in Router
+    <Router>
+      <div className="App">
+        <Navbar /> {/* Navbar stays outside Routes to be on every page */}
+        <main> {/* Optional: wrap routes in main for semantic HTML */}
+          {/* 2. Define the Routes */}
+          <Routes>
+            {/* Route for the Home page */}
+            <Route path="/" element={<Home />} />
+
+            {/* Route for the Students page (form) */}
+            <Route path="/students" element={<Students />} />
+
+            {/* Route for the Sponsors page */}
+            <Route path="/sponsors" element={<Sponsors />} />
+
+            {/* Optional: Add a catch-all route for 404 Not Found */}
+            <Route path="*" element={
+              <div style={{ padding: "20px" }}>
+                <h2>404: Page Not Found</h2>
+              </div>
+            } />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }
 
