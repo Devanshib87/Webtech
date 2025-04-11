@@ -1,0 +1,191 @@
+/* src/Pages/Home.css */
+
+.home-page {
+    /* Optional: Add overall page padding if needed, but sections handle it */
+  }
+  
+  /* Hero Section Styling */
+  .hero-section {
+    background-color: #e9f5ff; /* Light blue background */
+    padding: 80px 20px; /* More vertical padding */
+    text-align: center;
+    border-bottom: 1px solid #d0e8ff; /* Subtle border */
+  }
+  
+  .hero-content h1 {
+    font-size: 2.8rem; /* Larger heading */
+    color: #0056b3; /* Darker blue */
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+  
+  .hero-content .tagline {
+    font-size: 1.2rem;
+    color: #333;
+    max-width: 700px; /* Limit width for readability */
+    margin: 0 auto 30px auto; /* Center the tagline */
+    line-height: 1.6;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Space between buttons */
+    flex-wrap: wrap; /* Allow buttons to wrap on small screens */
+  }
+  
+  .cta-button {
+    display: inline-flex; /* Use flex for icon alignment */
+    align-items: center; /* Center icon and text vertically */
+    gap: 8px; /* Space between text and icon */
+    padding: 12px 25px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .cta-button.primary {
+    background-color: #007bff; /* Primary blue */
+    color: white;
+  }
+  
+  .cta-button.primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+  }
+  
+  .cta-button.secondary {
+    background-color: white;
+    color: #007bff; /* Primary blue text */
+    border-color: #007bff; /* Primary blue border */
+  }
+  
+  .cta-button.secondary:hover {
+    background-color: #e9f5ff; /* Light blue background on hover */
+    color: #0056b3;
+    border-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+  }
+  
+  /* How It Works Section Styling */
+  .how-it-works-section {
+    padding: 60px 20px;
+    background-color: #fff; /* White background */
+    text-align: center;
+  }
+  
+  .how-it-works-section h2 {
+    font-size: 2.2rem;
+    color: #333;
+    margin-bottom: 40px;
+    font-weight: 700;
+  }
+  
+  .steps-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Space between cards */
+    flex-wrap: wrap; /* Allow cards to wrap */
+    max-width: 1100px; /* Limit overall width */
+    margin: 0 auto; /* Center the container */
+  }
+  
+  .step-card {
+    background-color: #f8f9fa; /* Light grey card background */
+    padding: 30px 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    flex: 1; /* Allow cards to grow */
+    min-width: 250px; /* Minimum width before wrapping */
+    max-width: 350px; /* Maximum width */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .step-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+  }
+  
+  .step-icon {
+    font-size: 2.5rem; /* Larger icons */
+    color: #007bff; /* Blue icon color */
+    margin-bottom: 20px;
+    display: block; /* Make icon block to center easily */
+  }
+  
+  .step-card h3 {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  
+  .step-card p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+  }
+  
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .hero-content h1 {
+      font-size: 2.2rem;
+    }
+    .hero-content .tagline {
+      font-size: 1.1rem;
+    }
+    .cta-buttons {
+      flex-direction: column; /* Stack buttons vertically */
+      align-items: center; /* Center stacked buttons */
+    }
+    .cta-button {
+       width: 80%; /* Make buttons wider on mobile */
+       justify-content: center; /* Center text/icon in button */
+       max-width: 300px;
+    }
+  
+    .how-it-works-section h2 {
+       font-size: 1.8rem;
+    }
+  
+    .steps-container {
+      flex-direction: column; /* Stack cards vertically */
+      align-items: center; /* Center stacked cards */
+      gap: 20px;
+    }
+    .step-card {
+       min-width: 80%; /* Make cards take up more width */
+    }
+  }
+  
+  @media (max-width: 480px) {
+     .hero-section {
+        padding: 60px 15px;
+     }
+      .hero-content h1 {
+      font-size: 1.8rem;
+    }
+    .hero-content .tagline {
+      font-size: 1rem;
+    }
+     .step-card {
+       padding: 25px 20px;
+     }
+     .step-icon {
+       font-size: 2rem;
+     }
+      .step-card h3 {
+       font-size: 1.2rem;
+     }
+      .step-card p {
+       font-size: 0.9rem;
+     }
+  }
