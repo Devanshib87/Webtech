@@ -1,0 +1,58 @@
+.student-form-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 25px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .student-form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .student-form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .student-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .student-form input[type="text"],
+  .student-form input[type="number"],
+  .student-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Prevents padding from adding to width */
+    font-size: 1rem;
+  }
+  
+  .student-form textarea {
+    resize: vertical; /* Allow vertical resizing */
+  }
+  
+  .student-form .submit-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745; /* Green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .student-form .submit-btn:hover {
+    background-color: #218838; /* Darker green */
+  }
