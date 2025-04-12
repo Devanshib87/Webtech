@@ -1,43 +1,77 @@
 /* src/components/Navbar.css */
 
 .navbar {
-    background-color: #007bff; /* Blue background */
-    color: white;
-    padding: 15px 30px; /* Adjust padding as needed */
+    background-color: var(--primary-color); /* Use variable */
+    color: var(--text-light); /* Use variable */
+    padding: 15px 30px;
     display: flex;
-    justify-content: space-between; /* Pushes title left, links right */
-    align-items: center; /* Vertically centers items */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--box-shadow-sm); /* Use variable */
   }
   
-  .navbar h2 {
-    margin: 0; /* Remove default margin */
-    font-size: 1.5rem; /* Adjust size */
+  .navbar-brand {
+    color: var(--text-light); /* Use variable */
+    text-decoration: none;
+  }
+  
+  .navbar-brand h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    display: inline-block;
+    color: var(--text-light); /* Explicitly set h2 color */
+  }
+  
+  .navbar-brand:hover {
+    /* Usually no hover effect needed for brand, but depends on design */
   }
   
   .navbar ul {
-    list-style-type: none; /* Remove bullet points */
+    list-style-type: none;
     display: flex;
-    gap: 25px; /* Space between nav items */
+    gap: 25px;
     margin: 0;
     padding: 0;
+    align-items: center;
   }
   
   .navbar li {
-    display: inline-block; /* Align items horizontally */
+    display: inline-block;
   }
   
-  /* Styling for the <Link> elements from react-router-dom */
-  .navbar a { /* Target the <a> tags rendered by <Link> */
-    color: white;
-    text-decoration: none; /* Remove underline */
-    font-size: 1rem; /* Adjust size */
-    padding: 5px 10px; /* Add some clickable area */
-    border-radius: 4px; /* Slightly rounded corners */
-    transition: background-color 0.2s ease; /* Smooth hover effect */
+  /* Style for NavLink items in the list */
+  .navbar ul a {
+    color: var(--text-light); /* Use variable */
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 8px 15px;
+    border-radius: var(--border-radius); /* Use variable */
+    transition: background-color var(--transition-speed) var(--transition-ease); /* Use variables */
+    position: relative;
+    border: 1px solid transparent; /* Add border for potential active state */
   }
   
-  .navbar a:hover,
-  .navbar a.active { /* Add hover effect and style for active link (requires NavLink later) */
-    background-color: rgba(255, 255, 255, 0.2); /* Slight highlight on hover */
+  /* Hover effect for NavLinks */
+  .navbar ul a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
   }
+  
+  /* Style specifically for the active NavLink */
+  .navbar ul a.active {
+    font-weight: 700;
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Example: Add a white border bottom */
+    /* border-bottom: 2px solid var(--white); */
+  }
+  
+  /* Alternative active style: Underline using ::after */
+  .navbar ul a.active::after {
+     content: '';
+     position: absolute;
+     bottom: 2px; /* Adjust position */
+     left: 15px;
+     right: 15px;
+     height: 2px;
+     background-color: var(--white); /* Use variable */
+     border-radius: 1px;
+   }

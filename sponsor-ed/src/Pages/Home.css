@@ -1,138 +1,203 @@
 /* src/Pages/Home.css */
 
-.home-page {
-    /* Optional: Add overall page padding if needed, but sections handle it */
-  }
+/* ... (Keep other styles like .hero-section etc.) ... */
+/* src/Pages/Home.css */
+
+/* ... (Keep other styles) ... */
+
+/* === Hero Section Styling === */
+.hero-section {
+    /* Background Image */
+    background-image:
+      /* Gradient Overlay (darkens the image for text readability) */
+      linear-gradient(rgba(0, 86, 179, 0.6), rgba(0, 119, 204, 0.7)),
+      /* Actual image - path relative to public folder */
+      url('C:\Users\Dell\Desktop\WebProject\Webtech\sponsor-ed\public\images\hero-background.jpg'); /* ADJUST FILENAME */
   
-  /* Hero Section Styling */
-  .hero-section {
-    background-color: #e9f5ff; /* Light blue background */
-    padding: 80px 20px; /* More vertical padding */
+    background-size: cover; /* Cover the entire section */
+    background-position: center center; /* Center the image */
+    background-repeat: no-repeat;
+    padding: 100px 20px; /* Increased padding */
     text-align: center;
-    border-bottom: 1px solid #d0e8ff; /* Subtle border */
+    color: var(--text-light); /* Text color now white */
+    position: relative; /* For potential pseudo-elements */
+    min-height: 60vh; /* Ensure it takes significant viewport height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .hero-content h1 {
-    font-size: 2.8rem; /* Larger heading */
-    color: #0056b3; /* Darker blue */
-    margin-bottom: 15px;
+    font-size: 3rem; /* Larger */
+    color: var(--text-light); /* White heading */
+    margin-bottom: 1rem;
     font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Subtle text shadow */
   }
   
   .hero-content .tagline {
-    font-size: 1.2rem;
-    color: #333;
-    max-width: 700px; /* Limit width for readability */
-    margin: 0 auto 30px auto; /* Center the tagline */
-    line-height: 1.6;
+    font-size: 1.25rem;
+    color: var(--text-light); /* White tagline */
+    max-width: 700px;
+    margin: 0 auto 2rem auto;
+    line-height: 1.7;
+    opacity: 0.9; /* Slightly transparent */
   }
   
   .cta-buttons {
     display: flex;
     justify-content: center;
-    gap: 15px; /* Space between buttons */
-    flex-wrap: wrap; /* Allow buttons to wrap on small screens */
+    gap: 20px; /* Increased gap */
+    flex-wrap: wrap;
   }
   
   .cta-button {
-    display: inline-flex; /* Use flex for icon alignment */
-    align-items: center; /* Center icon and text vertically */
-    gap: 8px; /* Space between text and icon */
-    padding: 12px 25px;
-    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 30px; /* Larger buttons */
+    border-radius: var(--border-radius);
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 600;
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
+    border: none; /* Remove border if using background */
+    transition: all var(--transition-fast);
     cursor: pointer;
+    box-shadow: var(--box-shadow-subtle);
+  }
+  .cta-button i { /* Icon styling */
+      font-size: 1.1em;
   }
   
   .cta-button.primary {
-    background-color: #007bff; /* Primary blue */
-    color: white;
+    background-color: var(--accent-color); /* Use Accent Green */
+    color: var(--white);
   }
   
   .cta-button.primary:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    background-color: var(--accent-dark); /* Darker Accent */
+    transform: translateY(-3px); /* Lift effect */
+    box-shadow: var(--box-shadow-medium);
   }
   
   .cta-button.secondary {
-    background-color: white;
-    color: #007bff; /* Primary blue text */
-    border-color: #007bff; /* Primary blue border */
+    background-color: var(--white); /* White background */
+    color: var(--primary-dark); /* Dark Blue text */
   }
   
   .cta-button.secondary:hover {
-    background-color: #e9f5ff; /* Light blue background on hover */
-    color: #0056b3;
-    border-color: #0056b3;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+    background-color: var(--secondary-color); /* Light grey hover */
+    transform: translateY(-3px);
+     box-shadow: var(--box-shadow-medium);
   }
   
-  /* How It Works Section Styling */
-  .how-it-works-section {
-    padding: 60px 20px;
-    background-color: #fff; /* White background */
+  /* === End Hero Section Styling === */
+  
+  /* ... (Update How It Works section below) ... */
+  /* src/Pages/Home.css */
+
+/* ... (Keep Hero Styles) ... */
+
+/* === How It Works Section Styling === */
+.how-it-works-section {
+    padding: 80px 20px; /* More padding */
+    background-color: var(--secondary-color); /* Use light grey/blue */
     text-align: center;
   }
   
   .how-it-works-section h2 {
     font-size: 2.2rem;
-    color: #333;
-    margin-bottom: 40px;
+    color: var(--text-dark);
+    margin-bottom: 3rem; /* More space */
     font-weight: 700;
   }
   
   .steps-container {
     display: flex;
     justify-content: center;
-    gap: 30px; /* Space between cards */
-    flex-wrap: wrap; /* Allow cards to wrap */
-    max-width: 1100px; /* Limit overall width */
-    margin: 0 auto; /* Center the container */
+    align-items: stretch;
+    gap: 30px;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  
+  /* Entrance Animation */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   .step-card {
-    background-color: #f8f9fa; /* Light grey card background */
-    padding: 30px 25px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-    flex: 1; /* Allow cards to grow */
-    min-width: 250px; /* Minimum width before wrapping */
-    max-width: 350px; /* Maximum width */
+    background-color: var(--white); /* White cards on light background */
+    padding: 35px 30px; /* More padding */
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-subtle);
+    flex: 1;
+    min-width: 260px;
+    max-width: 350px;
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    /* Apply Animation */
+    opacity: 0; /* Start hidden */
+    animation: fadeInUp 0.6s var(--transition-ease) forwards; /* Apply the animation */
   }
   
+  /* Stagger the animation start time */
+  .step-card:nth-child(1) { animation-delay: 0.1s; }
+  .step-card:nth-child(2) { animation-delay: 0.25s; }
+  .step-card:nth-child(3) { animation-delay: 0.4s; }
+  
   .step-card:hover {
-    transform: translateY(-5px); /* Lift effect on hover */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+    transform: translateY(-8px); /* More lift */
+    box-shadow: var(--box-shadow-medium); /* Enhanced shadow */
   }
   
   .step-icon {
-    font-size: 2.5rem; /* Larger icons */
-    color: #007bff; /* Blue icon color */
-    margin-bottom: 20px;
-    display: block; /* Make icon block to center easily */
+    font-size: 3rem; /* Larger icons */
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    line-height: 1;
+    /* Optional: Add a background circle */
+     /* background-color: var(--light-blue-bg);
+     width: 70px;
+     height: 70px;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center; */
   }
   
   .step-card h3 {
     font-size: 1.4rem;
-    color: #333;
-    margin-bottom: 10px;
-    font-weight: 600;
+    color: var(--primary-dark); /* Use darker blue for heading */
+    margin-bottom: 0.75rem;
+    font-weight: 700; /* Bolder heading */
   }
   
   .step-card p {
     font-size: 1rem;
-    color: #555;
-    line-height: 1.6;
+    color: var(--text-medium);
+    line-height: 1.7;
+    flex-grow: 1;
   }
   
+  /* === End How It Works Section Styling === */
+  
+  /* ... (Keep Media Queries - adjust breakpoints if needed) ... */
+
+  /* ... (Keep media queries) ... */
+
   
   /* Responsive Adjustments */
   @media (max-width: 768px) {
