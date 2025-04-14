@@ -1,77 +1,130 @@
 /* src/components/Navbar.css */
-
 .navbar {
-    background-color: var(--primary-color); /* Use variable */
-    color: var(--text-light); /* Use variable */
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: var(--box-shadow-sm); /* Use variable */
+  background-color: var(--primary-color);
+  color: var(--text-light);
+  padding: 12px 30px; /* Slightly reduced padding */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--box-shadow-medium); /* Enhanced shadow */
+  position: sticky; /* Make navbar sticky */
+  top: 0;
+  z-index: 1000; /* Ensure it's above other content */
+  min-height: 65px; /* Ensure consistent height */
+}
+
+.navbar-brand {
+  color: var(--text-light);
+  text-decoration: none;
+  display: flex; /* Align icon and text */
+  align-items: center;
+  gap: 8px; /* Space between icon and text */
+  font-weight: 700;
+  transition: transform var(--transition-fast);
+}
+.navbar-brand:hover {
+    transform: scale(1.03); /* Slight scale on hover */
+}
+
+.navbar-brand h2 {
+  margin: 0;
+  font-size: 1.6rem; /* Slightly larger brand */
+  color: var(--text-light); /* Explicitly set h2 color */
+  line-height: 1; /* Prevent extra space */
+}
+
+/* Style for the navigation list */
+.navbar ul {
+  list-style-type: none;
+  display: flex;
+  gap: 20px; /* Slightly reduced gap */
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.navbar li {
+  display: inline-block;
+}
+
+/* Style for NavLink items (default state) */
+.navbar ul a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600; /* Make links slightly bolder */
+  padding: 10px 15px; /* Generous click area */
+  border-radius: var(--border-radius);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  position: relative; /* Needed for potential ::after elements */
+  border: 1px solid transparent; /* Prevent layout shift on active */
+}
+
+/* Hover effect for NavLinks */
+.navbar ul a:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--white); /* Ensure text stays white on hover */
+}
+
+/* Style specifically for the active NavLink */
+.navbar ul a.active {
+  /* background-color: rgba(255, 255, 255, 0.1); */ /* Optional subtle bg */
+  color: var(--white); /* Ensure active link is clearly white */
+  font-weight: 700; /* Bold active link */
+}
+
+/* Active style: Underline using ::after */
+.navbar ul a.active::after {
+   content: '';
+   position: absolute;
+   bottom: 4px; /* Adjust position */
+   left: 15px;
+   right: 15px;
+   height: 3px; /* Thicker underline */
+   background-color: var(--white);
+   border-radius: 2px;
+   animation: slideInFromLeft 0.3s ease; /* Subtle animation */
+ }
+
+ @keyframes slideInFromLeft {
+    from { transform: scaleX(0); transform-origin: left; }
+    to { transform: scaleX(1); transform-origin: left; }
+ }
+
+
+/* Responsive adjustments for Navbar */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 15px;
   }
-  
-  .navbar-brand {
-    color: var(--text-light); /* Use variable */
-    text-decoration: none;
-  }
-  
   .navbar-brand h2 {
-    margin: 0;
-    font-size: 1.5rem;
-    display: inline-block;
-    color: var(--text-light); /* Explicitly set h2 color */
+    font-size: 1.3rem;
   }
-  
-  .navbar-brand:hover {
-    /* Usually no hover effect needed for brand, but depends on design */
+   .navbar ul {
+    gap: 10px;
   }
-  
-  .navbar ul {
-    list-style-type: none;
-    display: flex;
-    gap: 25px;
-    margin: 0;
-    padding: 0;
-    align-items: center;
-  }
-  
-  .navbar li {
-    display: inline-block;
-  }
-  
-  /* Style for NavLink items in the list */
   .navbar ul a {
-    color: var(--text-light); /* Use variable */
-    text-decoration: none;
-    font-size: 1rem;
-    padding: 8px 15px;
-    border-radius: var(--border-radius); /* Use variable */
-    transition: background-color var(--transition-speed) var(--transition-ease); /* Use variables */
-    position: relative;
-    border: 1px solid transparent; /* Add border for potential active state */
+    padding: 8px 10px;
+    font-size: 0.9rem;
   }
-  
-  /* Hover effect for NavLinks */
-  .navbar ul a:hover {
-    background-color: rgba(255, 255, 255, 0.15);
+   .navbar ul a.active::after {
+    left: 10px;
+    right: 10px;
+    bottom: 2px;
   }
-  
-  /* Style specifically for the active NavLink */
-  .navbar ul a.active {
-    font-weight: 700;
-    background-color: rgba(255, 255, 255, 0.1);
-    /* Example: Add a white border bottom */
-    /* border-bottom: 2px solid var(--white); */
-  }
-  
-  /* Alternative active style: Underline using ::after */
-  .navbar ul a.active::after {
-     content: '';
-     position: absolute;
-     bottom: 2px; /* Adjust position */
-     left: 15px;
-     right: 15px;
-     height: 2px;
-     background-color: var(--white); /* Use variable */
-     border-radius: 1px;
-   }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        flex-direction: column; /* Stack brand and links */
+        padding: 15px;
+        gap: 15px; /* Space between brand and nav */
+    }
+    .navbar ul {
+        width: 100%;
+        justify-content: space-around; /* Spread links */
+    }
+     .navbar ul a {
+        padding: 8px; /* Smaller padding on very small screens */
+    }
+}

@@ -1,24 +1,34 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // 1. Import Link
-import './Navbar.css'; // Assuming Navbar.css is in the same folder
+// Import NavLink for automatic active class styling
+import { NavLink } from 'react-router-dom';
+import './Navbar.css'; // Import the CSS file
 
 function Navbar() {
   return (
     <nav className="navbar">
-      {/* Make the brand title a link to home */}
-      <Link to="/" style={{ color: 'white', textDecoration: 'none' }}>
-         <h2>📚 SponsorED</h2>
-      </Link>
+      {/* Brand logo/name linking to home */}
+      <NavLink to="/" className="navbar-brand">
+        {/* Using a relevant icon */}
+        <i className="fas fa-hands-helping"></i>
+        <h2>SponsorED</h2>
+      </NavLink>
+
+      {/* Navigation Links */}
       <ul>
-        {/* 2. Replace <li> with Link components */}
         <li>
-          <Link to="/" style={{ color: 'white', textDecoration: 'none' }}>Home</Link>
+          {/* NavLink automatically gets 'active' class when route matches */}
+          <NavLink
+            to="/"
+            // className={({ isActive }) => isActive ? 'active' : ''} // Manual class check (alternative)
+          >
+            Home
+          </NavLink>
         </li>
         <li>
-          <Link to="/students" style={{ color: 'white', textDecoration: 'none' }}>Students</Link>
+          <NavLink to="/students">Register Student</NavLink> {/* Changed text slightly */}
         </li>
         <li>
-          <Link to="/sponsors" style={{ color: 'white', textDecoration: 'none' }}>Sponsors</Link>
+          <NavLink to="/sponsors">Sponsor a Student</NavLink> {/* Changed text slightly */}
         </li>
       </ul>
     </nav>

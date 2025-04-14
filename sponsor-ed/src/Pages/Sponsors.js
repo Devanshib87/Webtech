@@ -2,13 +2,20 @@
 import React from 'react';
 import StudentList from '../components/StudentList'; // Import the list component
 
-// Accept the students array as a prop
-function Sponsors({ students }) {
+// This page receives the students array, loading, and error state from App.js
+function Sponsors({ students, loading, error }) {
   return (
     <div>
-      {/* You can add general sponsor info here if needed */}
-      {/* Pass the students array down to the StudentList component */}
-      <StudentList students={students} />
+      {/* Optional: Add title or intro text specific to sponsors */}
+      {/*
+      <div style={{ textAlign: 'center', padding: '20px 0', maxWidth: '800px', margin: '0 auto'}}>
+          <h1>Find a Student to Sponsor</h1>
+          <p>Browse the profiles below to find a student whose educational journey you'd like to support. Your contribution makes a direct impact.</p>
+      </div>
+      */}
+
+      {/* Render the StudentList, passing down the necessary props */}
+      <StudentList students={students} loading={loading} error={error} />
     </div>
   );
 }

@@ -1,256 +1,252 @@
 /* src/Pages/Home.css */
 
-/* ... (Keep other styles like .hero-section etc.) ... */
-/* src/Pages/Home.css */
-
-/* ... (Keep other styles) ... */
-
 /* === Hero Section Styling === */
 .hero-section {
-    /* Background Image */
-    background-image:
-      /* Gradient Overlay (darkens the image for text readability) */
-      linear-gradient(rgba(0, 86, 179, 0.6), rgba(0, 119, 204, 0.7)),
-      /* Actual image - path relative to public folder */
-      url('C:\Users\Dell\Desktop\WebProject\Webtech\sponsor-ed\public\images\hero-background.jpg'); /* ADJUST FILENAME */
-  
-    background-size: cover; /* Cover the entire section */
-    background-position: center center; /* Center the image */
-    background-repeat: no-repeat;
-    padding: 100px 20px; /* Increased padding */
-    text-align: center;
-    color: var(--text-light); /* Text color now white */
-    position: relative; /* For potential pseudo-elements */
-    min-height: 60vh; /* Ensure it takes significant viewport height */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .hero-content h1 {
-    font-size: 3rem; /* Larger */
-    color: var(--text-light); /* White heading */
-    margin-bottom: 1rem;
-    font-weight: 700;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Subtle text shadow */
-  }
-  
-  .hero-content .tagline {
-    font-size: 1.25rem;
-    color: var(--text-light); /* White tagline */
-    max-width: 700px;
-    margin: 0 auto 2rem auto;
-    line-height: 1.7;
-    opacity: 0.9; /* Slightly transparent */
-  }
-  
-  .cta-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px; /* Increased gap */
-    flex-wrap: wrap;
-  }
-  
-  .cta-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 30px; /* Larger buttons */
-    border-radius: var(--border-radius);
-    text-decoration: none;
-    font-size: 1.05rem;
-    font-weight: 600;
-    border: none; /* Remove border if using background */
-    transition: all var(--transition-fast);
-    cursor: pointer;
-    box-shadow: var(--box-shadow-subtle);
-  }
-  .cta-button i { /* Icon styling */
-      font-size: 1.1em;
-  }
-  
-  .cta-button.primary {
-    background-color: var(--accent-color); /* Use Accent Green */
-    color: var(--white);
-  }
-  
-  .cta-button.primary:hover {
-    background-color: var(--accent-dark); /* Darker Accent */
-    transform: translateY(-3px); /* Lift effect */
-    box-shadow: var(--box-shadow-medium);
-  }
-  
-  .cta-button.secondary {
-    background-color: var(--white); /* White background */
-    color: var(--primary-dark); /* Dark Blue text */
-  }
-  
-  .cta-button.secondary:hover {
-    background-color: var(--secondary-color); /* Light grey hover */
-    transform: translateY(-3px);
-     box-shadow: var(--box-shadow-medium);
-  }
-  
-  /* === End Hero Section Styling === */
-  
-  /* ... (Update How It Works section below) ... */
-  /* src/Pages/Home.css */
+  /* Background Image */
+  background-image:
+    /* Darker, more vibrant gradient overlay */
+    linear-gradient(rgba(0, 58, 115, 0.7), rgba(0, 102, 179, 0.8)),
+    /* Actual image - Ensure this path is correct relative to the PUBLIC folder */
+    url('C:\Users\Dell\Desktop\WebProject\Webtech\sponsor-ed\public\images\hero-background.jpg'); /* Use relative path from public */
 
-/* ... (Keep Hero Styles) ... */
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding: clamp(80px, 15vh, 150px) 20px; /* Responsive padding */
+  text-align: center;
+  color: var(--text-light);
+  position: relative;
+  min-height: 65vh; /* Ensure significant height */
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Prevent content overflow */
+}
+
+/* Entrance Animation for Hero Content */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUpHero { /* Renamed to avoid conflict */
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-content {
+  max-width: 800px; /* Limit content width */
+}
+
+.hero-content h1 {
+  font-size: clamp(2.5rem, 6vw, 3.8rem); /* Responsive heading */
+  color: var(--white); /* Ensure white */
+  margin-bottom: 1rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Slightly stronger shadow */
+  animation: fadeInDown 0.8s var(--transition-ease) backwards; /* Apply animation */
+}
+
+.hero-content .tagline {
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem); /* Responsive tagline */
+  color: var(--white); /* Ensure white */
+  max-width: 700px;
+  margin: 0 auto 2.5rem auto; /* More space below tagline */
+  line-height: 1.7;
+  opacity: 0.95; /* Slightly less transparent */
+  animation: fadeInDown 0.8s 0.2s var(--transition-ease) backwards; /* Delayed animation */
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap; /* Allow wrapping */
+  animation: fadeInUpHero 0.8s 0.4s var(--transition-ease) backwards; /* Delayed animation */
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center; /* Center content */
+  gap: 10px;
+  padding: 14px 30px;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  font-size: 1.1rem; /* Slightly larger font */
+  font-weight: 600;
+  border: none;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  box-shadow: var(--box-shadow-subtle);
+  min-width: 220px; /* Ensure buttons have good width */
+}
+.cta-button i { /* Icon styling */
+    font-size: 1.1em;
+    line-height: 1; /* Prevent icon affecting line height */
+}
+
+.cta-button.primary {
+  background-color: var(--accent-color);
+  color: var(--white);
+  border: 2px solid transparent; /* Add border for consistency on hover */
+}
+
+.cta-button.primary:hover {
+  background-color: var(--accent-dark);
+  transform: translateY(-3px) scale(1.03); /* Lift and slightly enlarge */
+  box-shadow: var(--box-shadow-medium);
+}
+
+.cta-button.secondary {
+  background-color: var(--white);
+  color: var(--primary-dark);
+  border: 2px solid var(--border-color); /* Visible border */
+}
+
+.cta-button.secondary:hover {
+  background-color: var(--secondary-color);
+  border-color: var(--primary-color); /* Change border color on hover */
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: var(--box-shadow-medium);
+}
+.cta-button:active {
+  transform: translateY(-1px) scale(1); /* Adjust active state with hover transform */
+}
+
+/* === End Hero Section Styling === */
+
 
 /* === How It Works Section Styling === */
 .how-it-works-section {
-    padding: 80px 20px; /* More padding */
-    background-color: var(--secondary-color); /* Use light grey/blue */
-    text-align: center;
-  }
-  
-  .how-it-works-section h2 {
-    font-size: 2.2rem;
-    color: var(--text-dark);
-    margin-bottom: 3rem; /* More space */
-    font-weight: 700;
-  }
-  
-  .steps-container {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    gap: 30px;
-    flex-wrap: wrap;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  
-  /* Entrance Animation */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .step-card {
-    background-color: var(--white); /* White cards on light background */
-    padding: 35px 30px; /* More padding */
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow-subtle);
-    flex: 1;
-    min-width: 260px;
-    max-width: 350px;
-    text-align: center;
-    transition: transform var(--transition-medium), box-shadow var(--transition-medium);
-    display: flex;
-    flex-direction: column;
+  padding: clamp(60px, 10vh, 100px) 20px; /* Responsive padding */
+  background-color: var(--secondary-color);
+  text-align: center;
+  overflow: hidden; /* Contain animations */
+}
+
+.how-it-works-section h2 {
+  font-size: clamp(1.8rem, 5vw, 2.5rem); /* Responsive heading */
+  color: var(--text-dark);
+  margin-bottom: 3rem;
+  font-weight: 700;
+}
+
+.steps-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch; /* Makes cards same height */
+  gap: clamp(20px, 4vw, 40px); /* Responsive gap */
+  flex-wrap: wrap;
+  max-width: 1200px; /* Wider max-width */
+  margin: 0 auto;
+}
+
+/* Entrance Animation Definition for Steps */
+@keyframes fadeInUpSteps { /* Renamed */
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.step-card {
+  background-color: var(--white);
+  padding: clamp(25px, 4vw, 40px) clamp(20px, 3vw, 30px); /* Responsive padding */
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-subtle);
+  flex: 1; /* Distribute space evenly */
+  min-width: 280px; /* Minimum width before wrapping */
+  max-width: 360px; /* Maximum width */
+  text-align: center;
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* Apply Entrance Animation */
+  opacity: 0; /* Start hidden */
+  animation: fadeInUpSteps 0.7s var(--transition-ease) forwards;
+}
+
+/* Stagger the animation start time for each card */
+.step-card:nth-child(1) { animation-delay: 0.1s; }
+.step-card:nth-child(2) { animation-delay: 0.3s; }
+.step-card:nth-child(3) { animation-delay: 0.5s; }
+
+/* Hover effect: lift and more shadow */
+.step-card:hover {
+  transform: translateY(-10px); /* More pronounced lift */
+  box-shadow: var(--box-shadow-medium);
+}
+
+.step-icon {
+  font-size: clamp(2.5rem, 6vw, 3.5rem); /* Responsive icon size */
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  line-height: 1;
+  /* Optional: Add a background circle */
+  /* background-color: rgba(0, 119, 204, 0.1);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center; */
+}
+
+.step-card h3 {
+  font-size: clamp(1.2rem, 2.5vw, 1.4rem); /* Responsive heading */
+  color: var(--primary-dark);
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.step-card p {
+  font-size: 1rem;
+  color: var(--text-medium);
+  line-height: 1.7;
+  flex-grow: 1; /* Helps align bottom content if cards wrap differently */
+}
+/* === End How It Works Section Styling === */
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .cta-buttons {
+    flex-direction: column; /* Stack buttons */
     align-items: center;
-  
-    /* Apply Animation */
-    opacity: 0; /* Start hidden */
-    animation: fadeInUp 0.6s var(--transition-ease) forwards; /* Apply the animation */
+    gap: 15px;
   }
-  
-  /* Stagger the animation start time */
-  .step-card:nth-child(1) { animation-delay: 0.1s; }
-  .step-card:nth-child(2) { animation-delay: 0.25s; }
-  .step-card:nth-child(3) { animation-delay: 0.4s; }
-  
-  .step-card:hover {
-    transform: translateY(-8px); /* More lift */
-    box-shadow: var(--box-shadow-medium); /* Enhanced shadow */
+  .cta-button {
+     width: 80%;
+     max-width: 320px; /* Limit max width */
+     min-width: unset; /* Remove min-width */
+     padding: 12px 20px; /* Adjust padding */
+     font-size: 1rem;
   }
-  
-  .step-icon {
-    font-size: 3rem; /* Larger icons */
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
-    line-height: 1;
-    /* Optional: Add a background circle */
-     /* background-color: var(--light-blue-bg);
-     width: 70px;
-     height: 70px;
-     border-radius: 50%;
-     display: flex;
-     align-items: center;
-     justify-content: center; */
-  }
-  
-  .step-card h3 {
-    font-size: 1.4rem;
-    color: var(--primary-dark); /* Use darker blue for heading */
-    margin-bottom: 0.75rem;
-    font-weight: 700; /* Bolder heading */
-  }
-  
-  .step-card p {
-    font-size: 1rem;
-    color: var(--text-medium);
-    line-height: 1.7;
-    flex-grow: 1;
-  }
-  
-  /* === End How It Works Section Styling === */
-  
-  /* ... (Keep Media Queries - adjust breakpoints if needed) ... */
 
-  /* ... (Keep media queries) ... */
+  .steps-container {
+    flex-direction: column; /* Stack cards */
+    align-items: center;
+    gap: 25px;
+  }
+  .step-card {
+     min-width: 70%; /* Wider cards on tablet */
+     max-width: 450px;
+  }
+}
 
-  
-  /* Responsive Adjustments */
-  @media (max-width: 768px) {
-    .hero-content h1 {
-      font-size: 2.2rem;
-    }
-    .hero-content .tagline {
-      font-size: 1.1rem;
-    }
-    .cta-buttons {
-      flex-direction: column; /* Stack buttons vertically */
-      align-items: center; /* Center stacked buttons */
-    }
-    .cta-button {
-       width: 80%; /* Make buttons wider on mobile */
-       justify-content: center; /* Center text/icon in button */
-       max-width: 300px;
-    }
-  
-    .how-it-works-section h2 {
-       font-size: 1.8rem;
-    }
-  
-    .steps-container {
-      flex-direction: column; /* Stack cards vertically */
-      align-items: center; /* Center stacked cards */
-      gap: 20px;
-    }
-    .step-card {
-       min-width: 80%; /* Make cards take up more width */
-    }
-  }
-  
-  @media (max-width: 480px) {
-     .hero-section {
-        padding: 60px 15px;
-     }
-      .hero-content h1 {
-      font-size: 1.8rem;
-    }
-    .hero-content .tagline {
-      font-size: 1rem;
-    }
-     .step-card {
-       padding: 25px 20px;
-     }
-     .step-icon {
-       font-size: 2rem;
-     }
-      .step-card h3 {
-       font-size: 1.2rem;
-     }
-      .step-card p {
-       font-size: 0.9rem;
-     }
-  }
+@media (max-width: 480px) {
+   .hero-section {
+      padding: 60px 15px;
+      min-height: 55vh;
+   }
+   .how-it-works-section {
+       padding: 40px 15px;
+   }
+   .step-card {
+     min-width: 85%; /* Even wider on mobile */
+   }
+   .cta-button {
+       width: 90%;
+   }
+}

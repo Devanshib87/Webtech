@@ -1,58 +1,85 @@
+/* src/components/StudentForm.css */
 .student-form-container {
-    max-width: 600px;
-    margin: 30px auto;
-    padding: 25px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .student-form-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .student-form .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .student-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .student-form input[type="text"],
-  .student-form input[type="number"],
-  .student-form textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box; /* Prevents padding from adding to width */
-    font-size: 1rem;
-  }
-  
-  .student-form textarea {
-    resize: vertical; /* Allow vertical resizing */
-  }
-  
-  .student-form .submit-btn {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    background-color: #28a745; /* Green */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .student-form .submit-btn:hover {
-    background-color: #218838; /* Darker green */
-  }
+  max-width: 650px; /* Slightly wider */
+  margin: 40px auto; /* More margin */
+  padding: 30px 35px; /* More padding */
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--white); /* Use white background */
+  box-shadow: var(--box-shadow-medium); /* Enhanced shadow */
+}
+
+.student-form-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: var(--primary-dark); /* Use primary dark color */
+  font-size: 1.8rem; /* Adjust size */
+}
+
+.student-form .form-group {
+  margin-bottom: 20px; /* More space between fields */
+}
+
+.student-form label {
+  display: block;
+  margin-bottom: 8px; /* More space below label */
+  font-weight: 600; /* Bolder labels */
+  color: var(--text-dark); /* Darker label color */
+  font-size: 0.95rem;
+}
+
+/* Using global input styles from index.css, but can override here if needed */
+/* .student-form input[type="text"], ... */
+
+.student-form textarea {
+  min-height: 100px; /* Ensure decent height */
+  resize: vertical; /* Allow vertical resizing only */
+}
+
+.student-form .submit-btn {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  background-color: var(--accent-color); /* Use variable */
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), opacity var(--transition-fast);
+  margin-top: 10px; /* Space above button */
+}
+
+.student-form .submit-btn:hover:not(:disabled) {
+  background-color: var(--accent-dark); /* Use variable */
+}
+
+.student-form .submit-btn:disabled {
+  background-color: #a0d3a9; /* Lighter green when disabled */
+  cursor: wait; /* Indicate waiting state */
+  opacity: 0.8;
+}
+
+/* Form Feedback Message Styles */
+.form-feedback {
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: var(--border-radius);
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 1px solid transparent;
+}
+
+.form-feedback.success {
+  background-color: var(--success-bg);
+  color: var(--success-text);
+  border-color: var(--success-border);
+}
+
+.form-feedback.error {
+  background-color: var(--error-bg);
+  color: var(--error-text);
+  border-color: var(--error-border);
+}

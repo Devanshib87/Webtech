@@ -1,69 +1,186 @@
 /* src/components/StudentList.css */
 .student-list-container {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 0 15px; /* Add horizontal padding */
-  }
-  
-  .student-list-container h2 {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #333;
-  }
-  
-  .student-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: grid; /* Use grid for layout */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive columns */
-    gap: 20px; /* Space between grid items */
-  }
-  
-  .student-list-item {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  
-  .student-list-item:hover {
-    transform: translateY(-3px); /* Slight lift effect */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  
-  .student-list-item h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    color: #007bff; /* Match navbar blue */
-  }
-  
-  .student-list-item p {
-    margin: 8px 0;
-    color: #555;
-    line-height: 1.5;
-  }
-  
-  .student-list-item p strong {
-    color: #333;
-  }
-  
-  .sponsor-button {
-    display: inline-block; /* Or block if you want full width */
-    margin-top: 15px;
-    padding: 8px 15px;
-    background-color: #28a745; /* Green */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .sponsor-button:hover {
-    background-color: #218838; /* Darker green */
-  }
+  max-width: 1100px; /* Wider container */
+  margin: 40px auto;
+  padding: 0 20px; /* Consistent horizontal padding */
+}
+
+.student-list-container > h2 { /* Target only the main h2 */
+  text-align: center;
+  margin-bottom: 35px;
+  color: var(--primary-dark);
+  font-size: 2rem;
+}
+
+/* Grid layout for student cards */
+.student-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  /* Responsive grid columns: min 280px width, max 1fr (takes equal space) */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px; /* Space between cards */
+}
+
+/* Individual student card styling */
+.student-list-item {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 25px 20px; /* More padding */
+  background-color: var(--white);
+  box-shadow: var(--box-shadow-subtle);
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+  display: flex; /* Use flexbox for internal layout */
+  flex-direction: column; /* Stack content vertically */
+
+  /* Apply Entrance Animation */
+  opacity: 0; /* Start hidden */
+  animation: fadeInSlideUp 0.6s ease forwards;
+}
+
+/* Staggered Animation Delay (add more if needed or use JS) */
+.student-list-item:nth-child(1) { animation-delay: 0.1s; }
+.student-list-item:nth-child(2) { animation-delay: 0.2s; }
+.student-list-item:nth-child(3) { animation-delay: 0.3s; }
+.student-list-item:nth-child(4) { animation-delay: 0.4s; }
+.student-list-item:nth-child(5) { animation-delay: 0.5s; }
+.student-list-item:nth-child(6) { animation-delay: 0.6s; }
+
+
+@keyframes fadeInSlideUp {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+.student-list-item:hover {
+  transform: translateY(-6px); /* Lift effect */
+  box-shadow: var(--box-shadow-medium);
+}
+
+.student-list-item h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: var(--primary-color);
+  font-size: 1.3rem; /* Adjust size */
+  font-weight: 700;
+}
+
+.student-list-item p {
+  margin: 6px 0; /* Adjust spacing */
+  color: var(--text-medium);
+  line-height: 1.6;
+  font-size: 0.95rem; /* Slightly smaller text */
+  flex-grow: 1; /* Allow description to push button down */
+}
+
+.student-list-item p strong {
+  color: var(--text-dark);
+  margin-right: 5px;
+}
+
+.sponsor-button {
+  display: inline-block; /* Button takes content width */
+  align-self: flex-start; /* Align button to the left */
+  margin-top: 20px; /* Space above button */
+  padding: 10px 18px; /* Adjust button padding */
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.sponsor-button:hover {
+  background-color: var(--accent-dark);
+}
+
+/* === Loading Spinner === */
+.loading-spinner-container {
+  text-align: center;
+  padding: 60px 20px;
+}
+.loading-spinner {
+  border: 6px solid var(--secondary-color); /* Light grey */
+  border-top: 6px solid var(--primary-color); /* Blue */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px auto; /* Center and space below */
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* === Error Message === */
+.error-message-container {
+  text-align: center;
+  padding: 40px 20px;
+  max-width: 600px;
+  margin: 40px auto;
+  background-color: var(--error-bg);
+  border: 1px solid var(--error-border);
+  color: var(--error-text);
+  border-radius: var(--border-radius);
+}
+.error-message-container i {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+.error-message-container p {
+    color: var(--error-text); /* Ensure paragraph text uses error color */
+    font-weight: 600;
+}
+
+
+/* === Empty State Styling === */
+.empty-state-container {
+  text-align: center;
+  padding: 60px 30px;
+  max-width: 550px;
+  margin: 50px auto;
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+}
+
+.empty-state-icon {
+  font-size: 4.5rem; /* Larger icon */
+  color: var(--text-medium); /* Use medium grey */
+  margin-bottom: 1.5rem;
+  display: block; /* Ensure icon is block for margin */
+}
+.empty-state-container h2 {
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+.empty-state-container p {
+    color: var(--text-medium);
+    margin-bottom: 1.5rem;
+}
+
+.empty-state-link { /* Style link as a button */
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+.empty-state-link:hover {
+    background-color: var(--primary-dark);
+    transform: scale(1.03);
+}
+.empty-state-link i {
+    margin-left: 8px;
+    font-size: 0.9em;
+}
