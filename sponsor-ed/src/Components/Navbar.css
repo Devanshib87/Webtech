@@ -1,130 +1,156 @@
 /* src/components/Navbar.css */
+
+/* Main navbar container */
 .navbar {
-  background-color: var(--primary-color);
-  color: var(--text-light);
-  padding: 12px 30px; /* Slightly reduced padding */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: var(--box-shadow-medium); /* Enhanced shadow */
-  position: sticky; /* Make navbar sticky */
+  background-color: var(--primary-color); /* Use CSS variable for background */
+  color: var(--text-light);               /* Use CSS variable for text color */
+  padding: 12px 30px;                     /* Padding around content */
+  display: flex;                          /* Use flexbox for layout */
+  justify-content: space-between;         /* Space out brand and links */
+  align-items: center;                    /* Vertically align items */
+  box-shadow: var(--box-shadow-medium);   /* Add shadow */
+  position: sticky;                       /* Make navbar stick to top */
   top: 0;
-  z-index: 1000; /* Ensure it's above other content */
-  min-height: 65px; /* Ensure consistent height */
+  z-index: 1000;                          /* Ensure it's above other content */
+  min-height: 65px;                       /* Consistent height */
 }
 
+/* Styling for the brand/logo link */
 .navbar-brand {
   color: var(--text-light);
-  text-decoration: none;
-  display: flex; /* Align icon and text */
+  text-decoration: none;                  /* Remove underline */
+  display: flex;
   align-items: center;
-  gap: 8px; /* Space between icon and text */
-  font-weight: 700;
-  transition: transform var(--transition-fast);
+  gap: 8px;                               /* Space between icon and text */
+  font-weight: 700;                       /* Bold text */
+  transition: transform var(--transition-fast); /* Smooth hover effect */
 }
 .navbar-brand:hover {
-    transform: scale(1.03); /* Slight scale on hover */
+    transform: scale(1.03);               /* Slight scale on hover */
 }
 
+/* Styling for the H2 inside the brand link */
 .navbar-brand h2 {
-  margin: 0;
-  font-size: 1.6rem; /* Slightly larger brand */
-  color: var(--text-light); /* Explicitly set h2 color */
-  line-height: 1; /* Prevent extra space */
+  margin: 0;                              /* Remove default margin */
+  font-size: 1.6rem;                      /* Adjust font size */
+  color: var(--text-light);               /* Explicitly set color */
+  line-height: 1;                         /* Prevent extra space */
 }
 
-/* Style for the navigation list */
+/* Styling for the navigation list (ul) */
 .navbar ul {
-  list-style-type: none;
-  display: flex;
-  gap: 20px; /* Slightly reduced gap */
-  margin: 0;
-  padding: 0;
-  align-items: center;
+  list-style-type: none;                  /* Remove bullet points */
+  display: flex;                          /* Use flexbox for horizontal layout */
+  gap: 20px;                              /* Space between list items */
+  margin: 0;                              /* Remove default margin */
+  padding: 0;                             /* Remove default padding */
+  align-items: center;                    /* Align items vertically */
 }
 
+/* Styling for list items (li) */
 .navbar li {
-  display: inline-block;
+  display: inline-block;                  /* Keep items inline */
 }
 
-/* Style for NavLink items (default state) */
+/* Default styling for NavLink items (a tags) */
 .navbar ul a {
   color: var(--text-light);
   text-decoration: none;
   font-size: 1rem;
-  font-weight: 600; /* Make links slightly bolder */
-  padding: 10px 15px; /* Generous click area */
+  font-weight: 600;
+  padding: 10px 15px;                     /* Clickable area */
   border-radius: var(--border-radius);
   transition: background-color var(--transition-fast), color var(--transition-fast);
-  position: relative; /* Needed for potential ::after elements */
-  border: 1px solid transparent; /* Prevent layout shift on active */
+  position: relative;                     /* For ::after pseudo-element */
+  border: 1px solid transparent;          /* Prevent layout shift on active */
 }
 
 /* Hover effect for NavLinks */
 .navbar ul a:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: var(--white); /* Ensure text stays white on hover */
+  background-color: rgba(255, 255, 255, 0.15); /* Subtle background change */
+  color: var(--white);                    /* Ensure text stays white */
 }
 
-/* Style specifically for the active NavLink */
+/* Styling for the ACTIVE NavLink */
 .navbar ul a.active {
-  /* background-color: rgba(255, 255, 255, 0.1); */ /* Optional subtle bg */
-  color: var(--white); /* Ensure active link is clearly white */
-  font-weight: 700; /* Bold active link */
+  color: var(--white);                    /* Ensure active link is clearly white */
+  font-weight: 700;                       /* Make active link bold */
 }
 
-/* Active style: Underline using ::after */
+/* Underline effect for the ACTIVE NavLink */
 .navbar ul a.active::after {
-   content: '';
+   content: '';                           /* Required for pseudo-elements */
    position: absolute;
-   bottom: 4px; /* Adjust position */
-   left: 15px;
-   right: 15px;
-   height: 3px; /* Thicker underline */
-   background-color: var(--white);
+   bottom: 4px;                           /* Position from bottom */
+   left: 15px;                            /* Start position */
+   right: 15px;                           /* End position */
+   height: 3px;                           /* Thickness */
+   background-color: var(--white);        /* Color of underline */
    border-radius: 2px;
-   animation: slideInFromLeft 0.3s ease; /* Subtle animation */
+   animation: slideInFromLeft 0.3s ease;  /* Add animation */
  }
 
+/* Animation for the active link underline */
  @keyframes slideInFromLeft {
     from { transform: scaleX(0); transform-origin: left; }
     to { transform: scaleX(1); transform-origin: left; }
  }
 
+ /* --- STYLES FOR LOGOUT BUTTON --- */
+.navbar-logout-btn {
+  background: none;                       /* No background */
+  border: 1px solid var(--white);         /* White border */
+  color: var(--white);                    /* White text */
+  padding: 8px 15px;                      /* Button padding */
+  border-radius: var(--border-radius);    /* Use global radius */
+  cursor: pointer;                        /* Pointer cursor on hover */
+  font-size: 0.9rem;                      /* Slightly smaller font */
+  font-weight: 600;                       /* Match nav links */
+  transition: background-color var(--transition-fast), color var(--transition-fast); /* Smooth transitions */
+  margin-left: 5px; /* Optional: Add slight margin if needed next to links */
+}
 
-/* Responsive adjustments for Navbar */
-@media (max-width: 768px) {
+.navbar-logout-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15); /* Subtle background on hover */
+}
+/* --- END LOGOUT BUTTON STYLES --- */
+
+
+/* === Responsive adjustments for Navbar === */
+@media (max-width: 768px) { /* Tablet and smaller */
   .navbar {
-    padding: 10px 15px;
+    padding: 10px 15px;                   /* Reduce padding */
   }
   .navbar-brand h2 {
-    font-size: 1.3rem;
+    font-size: 1.3rem;                    /* Smaller brand text */
   }
    .navbar ul {
-    gap: 10px;
+    gap: 10px;                            /* Reduce gap between links */
   }
-  .navbar ul a {
-    padding: 8px 10px;
-    font-size: 0.9rem;
+  .navbar ul a,
+  .navbar-logout-btn {                    /* Apply to button too */
+    padding: 8px 10px;                    /* Reduce padding */
+    font-size: 0.9rem;                    /* Smaller font */
   }
    .navbar ul a.active::after {
     left: 10px;
     right: 10px;
-    bottom: 2px;
+    bottom: 2px;                          /* Adjust underline position */
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 480px) { /* Mobile */
     .navbar {
-        flex-direction: column; /* Stack brand and links */
+        flex-direction: column;           /* Stack brand and links vertically */
         padding: 15px;
-        gap: 15px; /* Space between brand and nav */
+        gap: 15px;                        /* Space between stacked items */
     }
     .navbar ul {
         width: 100%;
-        justify-content: space-around; /* Spread links */
+        justify-content: space-around;    /* Distribute links evenly */
     }
-     .navbar ul a {
-        padding: 8px; /* Smaller padding on very small screens */
+     .navbar ul a,
+     .navbar-logout-btn {                 /* Apply to button too */
+        padding: 8px;                     /* Further reduce padding */
     }
 }
