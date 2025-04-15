@@ -184,3 +184,38 @@
     margin-left: 8px;
     font-size: 0.9em;
 }
+/* src/components/StudentList.css */
+
+/* ... keep all existing styles ... */
+
+/* Style for the sponsored status text */
+.sponsored-status {
+  margin-top: 20px; /* Same margin as button */
+  font-weight: 600;
+  color: var(--accent-color); /* Use success green color */
+  display: inline-flex; /* Align icon and text */
+  align-items: center;
+  gap: 6px; /* Space between icon and text */
+  font-size: 0.95rem;
+  padding: 10px 0; /* Match button vertical space approx */
+}
+
+.sponsored-status i {
+  font-size: 1.1em; /* Slightly larger check icon */
+}
+
+/* Optional: Slightly grey out sponsored cards */
+.student-list-item.sponsored {
+  background-color: #f8f9fa; /* Very light grey */
+  /* border-left: 4px solid var(--accent-color); Optional accent border */
+}
+
+/* Style for text when user can't sponsor self */
+.cannot-sponsor-self {
+    margin-top: 20px;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--text-medium);
+    display: inline-block;
+    padding: 10px 0;
+}

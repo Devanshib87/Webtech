@@ -5,8 +5,8 @@ import {
     BrowserRouter as Router,
     Routes,
     Route,
-    Navigate, // Moved to top
-    NavLink   // Moved to top
+    Navigate,
+    NavLink
 } from 'react-router-dom';
 // --- End React Router Imports ---
 
@@ -18,10 +18,12 @@ import {
     collection,
     getDocs,
     addDoc,
+    doc,        // Import doc reference function
+    updateDoc,  // Import updateDoc function
     query,
     orderBy,
     Timestamp,
-    // where // Import 'where' if you plan to use it in queries later
+    where // <<<--- Ensure 'where' is imported for the query
 } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 // --- End Firebase Imports ---
@@ -35,7 +37,7 @@ import AuthPage from './Pages/AuthPage';
 // --- End Component and Page Imports ---
 
 
-// --- Helper Components Defined within App.js (or import if separate) ---
+// === Helper Components Defined within App.js ===
 
 // Optional Loading Spinner Component
 const LoadingSpinner = () => (
@@ -49,16 +51,11 @@ const LoadingSpinner = () => (
 function ProtectedRoute({ children, currentUser }) {
     if (!currentUser) {
         // Redirect user to the login/signup page if they are not logged in
-        // 'replace' prevents the user from going back to the protected route via browser back button
         return <Navigate to="/auth" replace />;
     }
     // Render the intended component if the user is logged in
     return children;
 }
-
-// Placeholder pages (replace with actual imports if you create separate files)
-const SignUpPage = () => <h2>Sign Up Page - Add SignUpForm here</h2>;
-const LoginPage = () => <h2>Login Page - Add LoginForm here</h2>;
 // --- End Helper Components ---
 
 
@@ -74,66 +71,55 @@ function App() {
     // --- Effect for Firebase Auth State Listener ---
     useEffect(() => {
         setAuthLoading(true); // Start loading on mount/listener setup
-        // onAuthStateChanged returns an unsubscribe function
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-            setCurrentUser(user);     // Update state with user object or null
-            setAuthLoading(false);    // Auth check complete
+            setCurrentUser(user);
+            setAuthLoading(false);
             console.log("Auth State Changed:", user ? `User ID: ${user.uid}` : "No User");
         });
-
-        // Cleanup function: Unsubscribe from the listener when the component unmounts
         return () => {
             console.log("Unsubscribing auth listener");
             unsubscribe();
         };
-    }, []); // Empty dependency array ensures this runs only once on mount
+    }, []);
 
     // --- Callback for Fetching Students from Firestore ---
     const fetchStudents = useCallback(async () => {
-        // Prevent fetching if not logged in
         if (!currentUser) {
             console.log("Skipping student fetch: No user logged in.");
-            setStudents([]); // Clear data if logged out
+            setStudents([]);
             setLoading(false);
-            setError(null); // Clear previous errors
+            setError(null);
             return;
         }
-
         console.log("Attempting to fetch students from Firestore (user logged in)...");
-        setLoading(true); // Indicate start of data fetching
-        setError(null);   // Clear previous errors
-
+        setLoading(true);
+        setError(null);
         const studentsCollectionRef = collection(db, "students");
-        // Query to get students, ordered by creation time (newest first)
         const q = query(studentsCollectionRef, orderBy("createdAt", "desc"));
-
         try {
-            const querySnapshot = await getDocs(q); // Fetch documents
-            // Map Firestore docs to plain JS objects including the document ID
+            const querySnapshot = await getDocs(q);
             const studentsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            setStudents(studentsData); // Update state with fetched data
+            setStudents(studentsData);
             console.log("Students fetched successfully.");
         } catch (err) {
             console.error("Error fetching students:", err);
-            // Provide specific feedback based on potential errors
             if (err.code === 'permission-denied') {
                 setError("You don't have permission to view student data. Please ensure you are logged in and Firestore rules are correctly set.");
             } else {
                 setError("Could not load student data. Please try again later.");
             }
-            setStudents([]); // Clear data on error
+            setStudents([]);
         } finally {
-            setLoading(false); // Indicate end of data fetching
+            setLoading(false);
         }
-    }, [currentUser]); // Dependency: Re-create fetch function if currentUser changes
+    }, [currentUser]);
 
     // --- Effect to Fetch Students After Auth Check ---
     useEffect(() => {
-        // Only fetch data *after* the initial authentication check is complete
         if (!authLoading) {
             fetchStudents();
         }
-    }, [authLoading, fetchStudents]); // Dependencies: Run when auth check finishes or fetchStudents updates
+    }, [authLoading, fetchStudents]);
 
     // --- Callback for Adding a Student to Firestore ---
     const addStudent = useCallback(async (studentData) => {
@@ -143,38 +129,99 @@ function App() {
             throw new Error("You must be logged in to register a student.");
         }
 
-        console.log("Attempting to add student:", studentData);
         const studentsCollectionRef = collection(db, "students");
 
+        // --- START: Duplicate Check Logic ---
+        const { name } = studentData;
+        if (!name) {
+             console.error("Cannot check for duplicate: 'name' field is missing in studentData.");
+             throw new Error("Student name is required to check for duplicates.");
+        }
+
+        // Construct the query to find existing students with the same name
+        // AND created by the current user.
+        const duplicateCheckQuery = query(
+            studentsCollectionRef,
+            where("name", "==", name),
+            // Optional: Add more 'where' clauses for a stricter check, e.g.,
+            // where("dateOfBirth", "==", studentData.dateOfBirth),
+            where("creatorUid", "==", currentUser.uid) // <<<--- ACTIVATED: Only check duplicates added by the same user
+        );
+
         try {
-            // Add the new document with student data, creation timestamp, and creator's UID
+            console.log(`Checking if user ${currentUser.uid} already registered a student named: ${name}`);
+            const duplicateSnapshot = await getDocs(duplicateCheckQuery);
+
+            if (!duplicateSnapshot.empty) {
+                // A document with the same name created by this user already exists
+                console.warn(`Duplicate student found for user ${currentUser.uid}:`, studentData);
+                throw new Error(`You have already registered a student named "${name}".`); // Updated error message for clarity
+            }
+            // --- END: Duplicate Check Logic ---
+
+
+            // --- If check passes, proceed to add the new document ---
+            console.log("No existing student found with that name by this user. Proceeding to add new student:", studentData);
+            // Add the new document with student data, creation timestamp, creator's UID, and default isSponsored
             const docRef = await addDoc(studentsCollectionRef, {
                 ...studentData,             // Spread the data from the form
                 createdAt: Timestamp.now(), // Add server-side timestamp
-                creatorUid: currentUser.uid // Link the document to the logged-in user
+                creatorUid: currentUser.uid, // Link the document to the logged-in user
+                isSponsored: false          // Explicitly set default sponsorship status
             });
             console.log("Student added successfully with ID:", docRef.id);
 
             // Re-fetch the student list to include the new addition
-            // Note: For better performance with many users, consider Firestore listeners or optimistic updates
             await fetchStudents();
 
             return true; // Indicate success to the calling component (StudentForm)
 
         } catch (err) {
-            console.error("Error adding student:", err);
-            // Provide specific feedback based on potential errors
-            if (err.code === 'permission-denied') {
-                throw new Error("You don't have permission to add students. Check Firestore rules.");
-            } else {
-                throw new Error("Failed to add student. Please try again.");
-            }
+             // Catch errors from both the duplicate check (getDocs) and the addDoc call
+             console.error("Error during add student process:", err);
+             // Provide specific feedback based on potential errors
+             if (err instanceof Error && err.message.includes("already registered")) { // Adjusted check for the new error message
+                 // Re-throw the specific duplicate error message
+                 throw err;
+             } else if (err.code === 'permission-denied') {
+                 throw new Error("You don't have permission to add or query students. Check Firestore rules.");
+             } else {
+                 // General error for adding or checking
+                 throw new Error("Failed to add student. An error occurred. Please try again.");
+             }
         }
     }, [currentUser, fetchStudents]); // Dependencies: Re-create if user or fetch function changes
 
+    // --- Callback for Sponsoring a Student ---
+    const handleSponsorStudent = useCallback(async (studentId) => {
+        if (!currentUser) {
+            console.error("Sponsor attempt failed: User not logged in.");
+            alert("You must be logged in to sponsor a student.");
+            return;
+        }
+        console.log(`Attempting to sponsor student ${studentId} by user ${currentUser.uid}`);
+        const studentDocRef = doc(db, "students", studentId);
+        try {
+            await updateDoc(studentDocRef, {
+                isSponsored: true,
+                sponsoredBy: currentUser.uid,
+                sponsoredAt: Timestamp.now()
+            });
+            console.log(`Student ${studentId} sponsored successfully.`);
+            await fetchStudents();
+            alert(`Thank you for sponsoring!`);
+        } catch (err) {
+            console.error(`Error sponsoring student ${studentId}:`, err);
+            if (err.code === 'permission-denied') {
+                alert("Error: You do not have permission to perform this action. Check Firestore rules.");
+            } else {
+                alert("An error occurred while trying to sponsor. Please try again.");
+            }
+        }
+    }, [currentUser, fetchStudents]);
+
     // --- Conditional Rendering: Show Loading Indicator or App ---
     if (authLoading) {
-        // Display a loading state while the initial auth check is running
         return <LoadingSpinner />;
     }
 
@@ -182,16 +229,13 @@ function App() {
     return (
         <Router>
             <div className="App">
-                {/* Pass the current user state to the Navbar */}
                 <Navbar currentUser={currentUser} />
                 <main>
-                    {/* Define Application Routes */}
                     <Routes>
                         {/* Public Routes */}
                         <Route path="/" element={<Home />} />
                         <Route
                             path="/auth"
-                            // If user is logged in, redirect from /auth to home, otherwise show AuthPage
                             element={currentUser ? <Navigate to="/" replace /> : <AuthPage />}
                         />
 
@@ -200,6 +244,7 @@ function App() {
                             path="/students" // Page for registering a student
                             element={
                                 <ProtectedRoute currentUser={currentUser}>
+                                    {/* Pass addStudent callback to the Students page/component */}
                                     <Students onAddStudent={addStudent} currentUser={currentUser} />
                                 </ProtectedRoute>
                             }
@@ -208,7 +253,13 @@ function App() {
                             path="/sponsors" // Page for viewing students to sponsor
                             element={
                                 <ProtectedRoute currentUser={currentUser}>
-                                    <Sponsors students={students} loading={loading} error={error} currentUser={currentUser} />
+                                    <Sponsors
+                                        students={students}
+                                        loading={loading}
+                                        error={error}
+                                        currentUser={currentUser}
+                                        onSponsor={handleSponsorStudent} // Pass the sponsor function
+                                    />
                                 </ProtectedRoute>
                             }
                         />
@@ -218,13 +269,11 @@ function App() {
                             <div style={{ padding: "40px", textAlign: "center" }}>
                                 <h2>404: Page Not Found</h2>
                                 <p>Sorry, the page you are looking for does not exist.</p>
-                                {/* Use NavLink for styling consistency if needed */}
                                 <NavLink to="/" className="empty-state-link" style={{ marginTop: '20px' }}>Go to Home</NavLink>
                             </div>
                         } />
                     </Routes>
                 </main>
-                {/* Optional Footer could go here */}
             </div>
         </Router>
     );
